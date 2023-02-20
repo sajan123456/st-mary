@@ -1,9 +1,8 @@
-import 'dart:ffi';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:get/get.dart';
+import 'package:stmary_project/bottom.dart';
 import 'package:stmary_project/model/notice_model.dart';
 import 'package:stmary_project/view/calendar.dart';
 import 'package:stmary_project/view/menu.dart';
@@ -11,14 +10,19 @@ import 'package:stmary_project/view/notification_page.dart';
 
 import '../constants.dart';
 
-class Homepage extends StatelessWidget {
-  const Homepage({super.key});
+class TimelinePage extends StatefulWidget {
+  const TimelinePage({super.key});
 
+  @override
+  State<TimelinePage> createState() => _TimelinePageState();
+}
+
+class _TimelinePageState extends State<TimelinePage> {
   @override
   Widget build(BuildContext context) {
     double actualHeight = MediaQuery.of(context).size.height;
     double actualwidth = MediaQuery.of(context).size.width;
-    print(actualHeight);
+
     return SafeArea(
       child: Scaffold(
         body: Container(
@@ -205,15 +209,12 @@ class Homepage extends StatelessWidget {
                           shadowColor: Color.fromARGB(255, 255, 255, 255),
                           borderRadius: BorderRadius.circular(12),
                           child: Container(
-                            // margin: EdgeInsets.only(top: 12, bottom: 5),
                             height: 110,
                             width: double.infinity,
                             padding: EdgeInsets.all(12),
                             decoration: BoxDecoration(
                                 color: Color.fromARGB(255, 240, 243, 255),
                                 borderRadius: BorderRadius.circular(12)),
-                            // margin: EdgeInsets.only(top: 20),
-
                             child: Center(
                               child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -286,10 +287,6 @@ class Homepage extends StatelessWidget {
                                             : Text(''),
                                       ],
                                     ),
-                                    // Divider(
-                                    //   color: Colors.black,
-                                    // )
-                                    // Text(noticeDetails[index].noticeDate),
                                   ]),
                             ),
                           ),
@@ -302,83 +299,7 @@ class Homepage extends StatelessWidget {
             ),
           ]),
         ),
-
-        bottomNavigationBar: Container(
-          height: 50,
-          decoration: BoxDecoration(
-            color: Color.fromARGB(255, 225, 225, 255),
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              IconButton(
-                isSelected: true,
-                enableFeedback: false,
-                onPressed: () {},
-                icon: const Icon(
-                  CupertinoIcons.home,
-                  color: Color.fromARGB(255, 114, 114, 114),
-                  size: 25,
-                ),
-              ),
-              IconButton(
-                enableFeedback: false,
-                onPressed: () {
-                  Get.to(NotificationPage());
-                  Transition.rightToLeft;
-                },
-                icon: const Icon(
-                  CupertinoIcons.bell,
-                  color: Color.fromARGB(255, 114, 114, 114),
-                  size: 25,
-                ),
-              ),
-              IconButton(
-                enableFeedback: false,
-                onPressed: () {
-                  Get.to(Calendar());
-                },
-                icon: const Icon(
-                  CupertinoIcons.calendar,
-                  color: Color.fromARGB(255, 114, 114, 114),
-                  size: 25,
-                ),
-              ),
-              IconButton(
-                enableFeedback: false,
-                onPressed: () {
-                  Get.to(MenuPage());
-                },
-                icon: const Icon(
-                  Icons.widgets_outlined,
-                  color: Color.fromARGB(255, 114, 114, 114),
-                  size: 25,
-                ),
-              ),
-            ],
-          ),
-        ),
-
-        // bottomNavigationBar: BottomNavigationBar(
-        //     selectedFontSize: 12,
-        //     showUnselectedLabels: true,
-        //     selectedItemColor: Color.fromARGB(255, 115, 39, 202),
-        //     unselectedItemColor: Colors.grey,
-        //     items: <BottomNavigationBarItem>[
-        //       BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-        //       BottomNavigationBarItem(
-        //           icon: InkWell(child: Icon(Icons.favorite)),
-        //           label: 'Favourite'),
-        //       BottomNavigationBarItem(
-        //           icon: InkWell(onTap: () {}, child: Icon(Icons.person)),
-        //           label: 'Account'),
-        //       BottomNavigationBarItem(
-        //           icon: Icon(Icons.settings), label: 'Setting')
-        //     ]),
+        bottomNavigationBar: Bottom(),
       ),
     );
   }
